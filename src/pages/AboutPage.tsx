@@ -58,12 +58,11 @@ const AboutPage = () => {
           ]}
           className="absolute inset-0"
           autoPlayMs={10000}
-          overlayClassName="bg-black/40"
+          overlayClassName="none"
           showDefaultContent={false}
         />
         
-        {/* Glassmorphism Overlay */}
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-[1]" />
+        
         
   <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
           <div className="max-w-3xl text-center text-white">

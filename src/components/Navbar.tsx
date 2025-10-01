@@ -7,7 +7,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const linkBase =
-    'block px-3 py-2 rounded-md text-base lg:text-sm font-medium transition-colors duration-200';
+    'block px-3 py-3 rounded-md text-base lg:text-sm font-medium transition-colors duration-200';
 
   const getLinkClass = (isActive: boolean) =>
     `${linkBase} ${
@@ -21,16 +21,16 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16">
+        <div className="flex items-center h-16 sm:h-18 md:h-20">
           <div className="flex items-center">
             <NavLink to="/" className="flex items-center space-x-2">
               <img
                 src="/wakmaLogo.png"
                 alt="Wakma Gas logo"
-                className="h-9 w-9 object-contain select-none"
+                className="h-10 w-10 md:h-12 md:w-12 object-contain select-none"
                 draggable={false}
               />
-              <span className="text-2xl font-bold text-primary-800">Wakma Gas</span>
+              <span className="text-2xl md:text-3xl font-bold text-primary-800">Wakma Gas</span>
             </NavLink>
           </div>
 
@@ -55,12 +55,12 @@ const Navbar = () => {
           {/* Hamburger button (mobile & tablet) */}
           <button
             type="button"
-            className="ml-auto inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 lg:hidden"
+            className="ml-auto inline-flex items-center justify-center rounded-md p-3 md:p-3.5 text-gray-700 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 lg:hidden"
             aria-controls="mobile-menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {open ? <X className="h-7 w-7 md:h-8 md:w-8" /> : <Menu className="h-7 w-7 md:h-8 md:w-8" />}
           </button>
         </div>
       </div>

@@ -53,11 +53,11 @@ const HomePage = () => {
         {/* Background Carousel */}
         <HeroCarousel 
           images={[
-            '/gas-truck.jpg',
-            '/gas-cylinder.jpg',
+            // '/gas-truck.jpg',
+            // '/gas-cylinder.jpg',
             '/gas-station.jpg',
-            '/hero-customer-service.jpg',
-            '/hero-delivery.jpg',
+            // '/hero-customer-service.jpg',
+            // '/hero-delivery.jpg',
             '/hero-refilling.jpg',
             '/hero-safety.jpg',
             '/hero-storage-facility.jpg',
@@ -65,13 +65,11 @@ const HomePage = () => {
           ]}
           autoPlayMs={10000}
           className="absolute inset-0"
-          overlayClassName="bg-black/40"
+          overlayClassName="none"
           showDefaultContent={false}
         />
         
-        {/* Glassmorphism Overlay */}
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-[1]" />
-  <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
+  <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-center md:items-start justify-center px-4 sm:px-6 lg:px-8 pt-10 md:pt-16 pb-10">
           <div className="max-w-3xl text-center">
             <motion.h1 
               className="text-4xl md:text-6xl font-bold text-white mb-6"

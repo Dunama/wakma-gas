@@ -13,7 +13,7 @@ type HeroCarouselProps = {
   children?: ReactNode;
 };
 
-const DEFAULT_IMAGES = ['/gas-cylinder.jpg', '/gas-station.jpg', '/gas-truck.jpg', 'hero-safety.jpg'];
+const DEFAULT_IMAGES = ['/hero-storage-facility.jpg','/hero-technician.jpg', '/gas-station.jpg', '/gas-truck.jpg', '/hero-safety.jpg'];
 
 const HeroCarousel = ({
   images,
@@ -26,6 +26,7 @@ const HeroCarousel = ({
   const imagesKey = images?.join('|') ?? 'default';
   const slideImages = images && images.length > 0 ? images : DEFAULT_IMAGES;
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState<1 | -1>(1);
   const imageCount = slideImages.length;
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const HeroCarousel = ({
     }
 
     const timer = setInterval(() => {
+      setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % imageCount);
     }, autoPlayMs);
 
@@ -46,11 +48,13 @@ const HeroCarousel = ({
 
   const nextSlide = () => {
     if (imageCount <= 1) return;
+    setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % imageCount);
   };
 
   const prevSlide = () => {
     if (imageCount <= 1) return;
+    setDirection(-1);
     setCurrentSlide((prev) => (prev - 1 + imageCount) % imageCount);
   };
 
@@ -62,17 +66,17 @@ const HeroCarousel = ({
         <AnimatePresence mode="wait">
           <motion.div
             key={`${imagesKey}-${currentSlide}`}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: 60 * direction }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 * direction }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
             className="absolute inset-0"
           >
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${slideImages[currentSlide]})` }}
             />
-            {overlayClassName && (
+            {overlayClassName && overlayClassName !== 'none' && (
               <div
                 className={`absolute inset-0 ${overlayClassName}`}
                 style={{ pointerEvents: 'none' }}
@@ -90,7 +94,7 @@ const HeroCarousel = ({
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
                 >
-                  <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
                     Welcome to{' '}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-wakma-orange to-white">
                       Wakma Gas
@@ -147,7 +151,11 @@ const HeroCarousel = ({
               {slideImages.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentSlide(index)}
+                  onClick={() => {
+                    if (index === currentSlide) return;
+                    setDirection(index > currentSlide ? 1 : -1);
+                    setCurrentSlide(index);
+                  }}
                   className={`w-3 h-3 rounded-full transition-colors ${
                     index === currentSlide ? 'bg-wakma-orange' : 'bg-white/50'
                   }`}
