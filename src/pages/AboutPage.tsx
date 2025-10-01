@@ -46,15 +46,10 @@ const AboutPage = () => {
       >
         <HeroCarousel 
           images={[
-            '/gas-truck.jpg',
-            '/gas-cylinder.jpg',
-            '/gas-station.jpg',
-            '/hero-customer-service.jpg',
-            '/hero-delivery.jpg',
-            '/hero-refilling.jpg',
-            '/hero-safety.jpg',
             '/hero-storage-facility.jpg',
             '/hero-technician.jpg',
+            '/gas-truck.jpg',
+            '/hero-safety.jpg'
           ]}
           className="absolute inset-0"
           autoPlayMs={10000}

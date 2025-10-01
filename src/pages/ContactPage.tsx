@@ -125,15 +125,10 @@ const ContactPage = () => {
       >
         <HeroCarousel 
           images={[
-            '/gas-truck.jpg',
-            '/gas-cylinder.jpg',
-            '/gas-station.jpg',
-            '/hero-customer-service.jpg',
-            '/hero-delivery.jpg',
-            '/hero-refilling.jpg',
-            '/hero-safety.jpg',
-            '/hero-storage-facility.jpg',
+           '/hero-storage-facility.jpg',
             '/hero-technician.jpg',
+            '/gas-truck.jpg',
+            '/hero-safety.jpg'
           ]}
           autoPlayMs={10000}
           className="absolute inset-0"

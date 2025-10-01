@@ -17,7 +17,7 @@ const DEFAULT_IMAGES = [
   '/hero-storage-facility.jpg',
   '/hero-technician.jpg',
   '/gas-truck.jpg',
-  '/hero-safety.jpg',
+  '/hero-safety.jpg'
 ];
 
 // Inject a small stylesheet to hide the left/right nav buttons.
