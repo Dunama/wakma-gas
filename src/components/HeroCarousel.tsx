@@ -13,7 +13,29 @@ type HeroCarouselProps = {
   children?: ReactNode;
 };
 
-const DEFAULT_IMAGES = ['/hero-storage-facility.jpg','/hero-technician.jpg', '/gas-station.jpg', '/gas-truck.jpg', '/hero-safety.jpg'];
+const DEFAULT_IMAGES = [
+  '/hero-storage-facility.jpg',
+  '/hero-technician.jpg',
+  '/gas-truck.jpg',
+  '/hero-safety.jpg',
+];
+
+// Inject a small stylesheet to hide the left/right nav buttons.
+// Runs at module import time in the browser.
+if (typeof document !== 'undefined') {
+  const styleId = 'hero-carousel-hide-nav';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      button[aria-label="Previous slide"],
+      button[aria-label="Next slide"] {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
 
 const HeroCarousel = ({
   images,

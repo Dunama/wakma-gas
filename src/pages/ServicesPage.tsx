@@ -71,7 +71,7 @@ const ServicesPage = () => {
           ]}
           autoPlayMs={10000}
           className="absolute inset-0"
-          overlayClassName="none"
+          overlayClassName="bg-black/50 backdrop-blur-sm"
           showDefaultContent={false}
         />
         

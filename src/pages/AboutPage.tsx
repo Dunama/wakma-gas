@@ -58,7 +58,7 @@ const AboutPage = () => {
           ]}
           className="absolute inset-0"
           autoPlayMs={10000}
-          overlayClassName="none"
+          overlayClassName="bg-black/50 backdrop-blur-sm"
           showDefaultContent={false}
         />
         

@@ -27,7 +27,7 @@ const Navbar = () => {
               <img
                 src="/wakmaLogo.png"
                 alt="Wakma Gas logo"
-                className="h-10 w-10 md:h-12 md:w-12 object-contain select-none"
+                className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 object-contain select-none"
                 draggable={false}
               />
               <span className="text-2xl md:text-3xl font-bold text-primary-800">Wakma Gas</span>
