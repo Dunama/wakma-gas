@@ -22,21 +22,21 @@ const HomePage = () => {
       title: 'Complete Gas Starter Kits',
       description:
         'Pick up a ready-to-use package that includes a double-burner stove, calibrated regulator, hose, and factory-tested cylinder so you can start cooking safely right away.',
-      image: '/sales.jpg',
+      image: '/starterkit.png',
       reverse: false
     },
     {
       title: 'Professional Cylinder Handling',
       description:
         'Our trained team follows stringent loading and delivery protocols, giving you confidence that every cylinder is filled, sealed, and transported with utmost care.',
-      image: '/safety.jpg',
+      image: '/safety.png',
       reverse: true
     },
     {
       title: 'Cylinders for Every Household',
       description:
         'Choose from a wide selection of cylinder sizes and finishes, all pressure-tested and supported with ongoing maintenance to match your daily cooking needs.',
-      image: '/cylinders.jpg',
+      image: '/cylinders.png',
       reverse: false
     }
   ];
@@ -56,12 +56,21 @@ const HomePage = () => {
             '/gas-truck.jpg',
             '/gas-cylinder.jpg',
             '/gas-station.jpg',
+            '/hero-customer-service.jpg',
+            '/hero-delivery.jpg',
+            '/hero-refilling.jpg',
+            '/hero-safety.jpg',
+            '/hero-storage-facility.jpg',
+            '/hero-technician.jpg',
           ]}
           autoPlayMs={10000}
           className="absolute inset-0"
           overlayClassName="bg-black/40"
           showDefaultContent={false}
         />
+        
+        {/* Glassmorphism Overlay */}
+        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-[1]" />
   <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
           <div className="max-w-3xl text-center">
             <motion.h1 
@@ -145,45 +154,47 @@ const HomePage = () => {
             </p>
           </motion.div>
 
-          <div className="space-y-16">
+          <div className="space-y-10 md:space-y-12">
             {featureHighlights.map((feature, index) => (
-              <motion.div
+              <motion.section
                 key={feature.title}
-                className={`flex flex-col items-center gap-10 lg:gap-16 ${feature.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
+                className={`flex flex-col md:flex-row items-center justify-center md:justify-center lg:justify-start gap-4 md:gap-6 lg:gap-10 ${feature.reverse ? 'md:flex-row-reverse' : ''}`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <motion.div
-                  className="w-full lg:w-1/2"
+                <motion.figure
+                  className="w-full md:w-5/12 max-w-sm sm:max-w-md md:max-w-lg mx-auto"
                   initial={{ opacity: 0, x: feature.reverse ? 80 : -80 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ duration: 0.7, delay: 0.1 + index * 0.1 }}
                 >
-                  <motion.img
-                    src={feature.image}
-                    alt={feature.title}
-                    className="w-full h-72 md:h-80 lg:h-96 object-cover rounded-3xl shadow-xl shadow-gray-900/10"
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ type: 'spring', stiffness: 120 }}
-                  />
-                </motion.div>
+                  <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[5/3] overflow-hidden">
+                    <motion.img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="absolute inset-0 h-full w-full object-cover object-center"
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ type: 'spring', stiffness: 120 }}
+                    />
+                  </div>
+                  <figcaption className="sr-only">{feature.title}</figcaption>
+                </motion.figure>
                 <motion.div
-                  className="w-full lg:w-1/2 text-center lg:text-left"
+                  className="w-full md:w-6/12 max-w-2xl mx-auto text-center md:text-left"
                   initial={{ opacity: 0, x: feature.reverse ? -80 : 80 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ duration: 0.7, delay: 0.2 + index * 0.1 }}
                 >
-                  <p className="text-sm font-semibold uppercase tracking-widest text-primary-600 mb-3">Trusted Service</p>
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{feature.title}</h3>
                   <p className="text-lg text-gray-600 leading-relaxed">
                     {feature.description}
                   </p>
                 </motion.div>
-              </motion.div>
+              </motion.section>
             ))}
           </div>
         </div>

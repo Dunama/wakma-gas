@@ -45,12 +45,26 @@ const AboutPage = () => {
         transition={{ duration: 1 }}
       >
         <HeroCarousel 
-          images={['/gas-cylinder.jpg', '/gas-station.jpg', '/gas-truck.jpg']}
+          images={[
+            '/gas-truck.jpg',
+            '/gas-cylinder.jpg',
+            '/gas-station.jpg',
+            '/hero-customer-service.jpg',
+            '/hero-delivery.jpg',
+            '/hero-refilling.jpg',
+            '/hero-safety.jpg',
+            '/hero-storage-facility.jpg',
+            '/hero-technician.jpg',
+          ]}
           className="absolute inset-0"
           autoPlayMs={10000}
           overlayClassName="bg-black/40"
           showDefaultContent={false}
         />
+        
+        {/* Glassmorphism Overlay */}
+        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-[1]" />
+        
   <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
           <div className="max-w-3xl text-center text-white">
             <motion.h1 
@@ -159,13 +173,24 @@ const AboutPage = () => {
 
       {/* Community Impact */}
       <motion.section 
-        className="py-20 bg-gradient-to-r from-primary-600 to-accent-500"
+        className="relative py-20 overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Full-view background image (no cropping) */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+          <img
+            src="/serving-community.png"
+            alt="Serving the Adamawa Community"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        {/* Dark overlay for readability above image */}
+        <div className="absolute inset-0 z-[1] bg-black/50 pointer-events-none" />
+
+        <div className="relative z-[2] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Serving the Adamawa Community
           </h2>
@@ -192,7 +217,7 @@ const AboutPage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.5 }}
             >
-              <div className="text-4xl font-bold text-white mb-2">5+</div>
+              <div className="text-4xl font-bold text-white mb-2">2+</div>
               <div className="text-white/80">Years of Service</div>
             </motion.div>
             <motion.div

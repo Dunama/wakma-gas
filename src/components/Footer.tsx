@@ -1,7 +1,8 @@
+import { Facebook, Instagram, Twitter } from 'lucide-react';
 const Footer = () => {
   return (
     <footer className="bg-primary-800 text-white mt-16">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Brand blurb */}
         <div>
           <div className="flex items-center space-x-2 mb-4">
@@ -12,11 +13,37 @@ const Footer = () => {
             Wakma Gas is a full-service LPG company in Nigeria focused on safe and
             reliable distribution of cooking gas and accessories.
           </p>
-          <div className="flex space-x-3 mt-6">
-            <div className="h-10 w-10 grid place-items-center bg-primary-700 rounded-2xl">f</div>
-            <div className="h-10 w-10 grid place-items-center bg-primary-700 rounded-2xl">t</div>
-            <div className="h-10 w-10 grid place-items-center bg-primary-700 rounded-2xl">ig</div>
-            <div className="h-10 w-10 grid place-items-center bg-primary-700 rounded-2xl">yt</div>
+          <div className="flex items-center gap-3 mt-6">
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="group inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 backdrop-blur-sm transition-transform duration-200 hover:scale-105"
+              title="Facebook"
+            >
+              <Facebook className="h-5 w-5 text-white/90" />
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="group inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 backdrop-blur-sm transition-transform duration-200 hover:scale-105"
+              title="Instagram"
+            >
+              <Instagram className="h-5 w-5 text-white/90" />
+            </a>
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X (Twitter)"
+              className="group inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/20 backdrop-blur-sm transition-transform duration-200 hover:scale-105"
+              title="X (Twitter)"
+            >
+              <Twitter className="h-5 w-5 text-white/90" />
+            </a>
           </div>
         </div>
 
@@ -31,7 +58,6 @@ const Footer = () => {
           </ul>
         </div>
 
-       
         {/* Newsletter */}
         <div>
           <h3 className="text-xl font-semibold">Wakma Gas Newsletter</h3>

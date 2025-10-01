@@ -13,7 +13,7 @@ type HeroCarouselProps = {
   children?: ReactNode;
 };
 
-const DEFAULT_IMAGES = ['/gas-cylinder.jpg', '/gas-station.jpg', '/gas-truck.jpg'];
+const DEFAULT_IMAGES = ['/gas-cylinder.jpg', '/gas-station.jpg', '/gas-truck.jpg', 'hero-safety.jpg'];
 
 const HeroCarousel = ({
   images,

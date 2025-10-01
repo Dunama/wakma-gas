@@ -1,6 +1,22 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import HeroCarousel from '../components/HeroCarousel';
 import { MapPin, Phone, Mail, MessageSquare, Clock, Users } from 'lucide-react';
+
+type CardKey = 'location' | 'phone' | 'email';
+
+type InfoCard = {
+  key: CardKey;
+  icon: typeof MapPin;
+  accentClass: string;
+  frontTitle: string;
+  frontLines: string[];
+  frontHint: string;
+  backTitle: string;
+  backLines: string[];
+  backHint: string;
+  ctas?: Array<{ label: string; href: string; external?: boolean }>;
+};
 
 const ContactPage = () => {
   const fadeInUp = {
@@ -17,6 +33,87 @@ const ContactPage = () => {
     }
   };
 
+  const [flippedCards, setFlippedCards] = useState<Record<CardKey, boolean>>({
+    location: false,
+    phone: false,
+    email: false
+  });
+
+  const toggleCard = (key: CardKey) => {
+    setFlippedCards((prev) => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  const infoCards: InfoCard[] = [
+    {
+      key: 'location',
+      icon: MapPin,
+      accentClass: 'text-primary-600',
+      frontTitle: 'Location',
+      frontLines: [
+        'Opposite Rochas Foundation Academy',
+        'Adamawa State, Nigeria'
+      ],
+      frontHint: 'Tap to reveal directions',
+      backTitle: 'Visit Us',
+      backLines: [
+        'Opposite Rochas Foundation Academy',
+        'Mubi, Adamawa State, Nigeria'
+      ],
+      backHint: 'Tap again to flip back',
+      ctas: [
+        {
+          label: 'Open in Google Maps',
+          href: 'https://maps.app.goo.gl/LeWRf38sGz5NpBfb8',
+          external: true
+        }
+      ]
+    },
+    {
+      key: 'phone',
+      icon: Phone,
+      accentClass: 'text-accent-600',
+      frontTitle: 'Phone',
+      frontLines: [
+        '+234 (0) 803 078 1297',
+        'Available 24/7'
+      ],
+      frontHint: 'Tap for quick dial options',
+      backTitle: 'Call Us Anytime',
+      backLines: [
+        'Customer Support: +234 803 078 1297',
+        'Emergency Hotline: +234 708 000 0000'
+      ],
+      backHint: 'Tap again to flip back',
+      ctas: [
+        { label: 'Call Support', href: 'tel:+2348030781297' },
+        { label: 'Call Emergency', href: 'tel:+2347080000000' }
+      ]
+    },
+    {
+      key: 'email',
+      icon: Mail,
+      accentClass: 'text-primary-600',
+      frontTitle: 'Email',
+      frontLines: [
+        'info@wakmagas.com',
+        'We reply within 24 hours'
+      ],
+      frontHint: 'Tap to reveal direct links',
+      backTitle: 'Send Us a Message',
+      backLines: [
+        'Reach our team at info@wakmagas.com',
+        'We respond promptly to every request'
+      ],
+      backHint: 'Tap again to flip back',
+      ctas: [
+        { label: 'Compose Email', href: 'mailto:info@wakmagas.com' }
+      ]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
@@ -27,12 +124,26 @@ const ContactPage = () => {
         transition={{ duration: 1 }}
       >
         <HeroCarousel 
-          images={[ '/gas-truck.jpg', '/gas-cylinder.jpg', '/gas-station.jpg' ]}
+          images={[
+            '/gas-truck.jpg',
+            '/gas-cylinder.jpg',
+            '/gas-station.jpg',
+            '/hero-customer-service.jpg',
+            '/hero-delivery.jpg',
+            '/hero-refilling.jpg',
+            '/hero-safety.jpg',
+            '/hero-storage-facility.jpg',
+            '/hero-technician.jpg',
+          ]}
           autoPlayMs={10000}
           className="absolute inset-0"
           overlayClassName="bg-black/40"
           showDefaultContent={false}
         />
+        
+        {/* Glassmorphism Overlay */}
+        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-[1]" />
+        
   <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
           <div className="max-w-3xl text-center text-white">
             <motion.h1 
@@ -61,48 +172,78 @@ const ContactPage = () => {
         viewport={{ once: true, amount: 0.3 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            <motion.div
-              className="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300"
-              variants={fadeInUp}
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <MapPin className="h-12 w-12 text-primary-600 mx-auto mb-6" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Location</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Opposite Rochas Foundation Academy<br />
-                Adamawa State, Nigeria
-              </p>
-            </motion.div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
+            {infoCards.map((card) => {
+              const Icon = card.icon;
+              const isFlipped = flippedCards[card.key];
+              return (
+                <motion.div
+                  key={card.key}
+                  variants={fadeInUp}
+                  className="relative"
+                  style={{ perspective: 1200 }}
+                >
+                  <motion.button
+                    type="button"
+                    className="relative flex w-full min-h-[260px] flex-col items-center justify-center rounded-xl bg-white px-8 py-10 text-center shadow-lg transition-shadow duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary-500 [transform-style:preserve-3d]"
+                    onClick={() => toggleCard(card.key)}
+                    animate={{ rotateY: isFlipped ? 180 : 0 }}
+                    transition={{ duration: 0.7, ease: 'easeInOut' }}
+                    whileHover={{ y: -6 }}
+                    aria-pressed={isFlipped}
+                    aria-label={`Toggle ${card.frontTitle.toLowerCase()} details`}
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    <div
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 [backface-visibility:hidden]"
+                      style={{ pointerEvents: isFlipped ? 'none' : 'auto' }}
+                    >
+                      <Icon className={`h-12 w-12 ${card.accentClass}`} />
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">{card.frontTitle}</h3>
+                        {card.frontLines.map((line, idx) => (
+                          <p key={`${card.key}-front-${idx}`} className="text-gray-600 leading-relaxed">
+                            {line}
+                          </p>
+                        ))}
+                      </div>
+                      <p className="text-sm font-medium text-primary-600/80">{card.frontHint}</p>
+                    </div>
 
-            <motion.div
-              className="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300"
-              variants={fadeInUp}
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Phone className="h-12 w-12 text-accent-600 mx-auto mb-6" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Phone</h3>
-              <p className="text-gray-600 leading-relaxed">
-                +234 XXX XXX XXXX<br />
-                <span className="text-sm text-gray-500">Available 24/7</span>
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300"
-              variants={fadeInUp}
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Mail className="h-12 w-12 text-primary-600 mx-auto mb-6" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Email</h3>
-              <p className="text-gray-600 leading-relaxed">
-                info@wakmagas.com<br />
-                <span className="text-sm text-gray-500">We reply within 24 hours</span>
-              </p>
-            </motion.div>
+                    <div
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                      style={{ pointerEvents: isFlipped ? 'auto' : 'none' }}
+                    >
+                      <Icon className={`h-12 w-12 ${card.accentClass}`} />
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">{card.backTitle}</h3>
+                        {card.backLines.map((line, idx) => (
+                          <p key={`${card.key}-back-${idx}`} className="text-gray-600 leading-relaxed">
+                            {line}
+                          </p>
+                        ))}
+                      </div>
+                      {card.ctas && (
+                        <div className="flex flex-wrap justify-center gap-3">
+                          {card.ctas.map((cta) => (
+                            <a
+                              key={`${card.key}-${cta.label}`}
+                              href={cta.href}
+                              target={cta.external ? '_blank' : undefined}
+                              rel={cta.external ? 'noopener noreferrer' : undefined}
+                              className="inline-flex items-center justify-center rounded-full bg-primary-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-600/40 transition-colors duration-300 hover:bg-primary-500"
+                            >
+                              {cta.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                      <p className="text-xs uppercase tracking-wide text-gray-400">{card.backHint}</p>
+                    </div>
+                  </motion.button>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Contact Form and Map */}
@@ -241,31 +382,6 @@ const ContactPage = () => {
         </div>
       </motion.section>
 
-      {/* Emergency Contact */}
-      <motion.section 
-        className="py-20 bg-gradient-to-r from-red-600 to-red-500"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Emergency Gas Services
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Need immediate assistance? Our emergency response team is available 24/7 
-            for urgent gas-related issues.
-          </p>
-          <motion.button 
-            className="bg-white text-red-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Call Emergency Line
-          </motion.button>
-        </div>
-      </motion.section>
     </div>
   );
 };
