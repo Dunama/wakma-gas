@@ -45,7 +45,7 @@ const HomePage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <motion.section 
-        className="relative min-h-screen pt-24 pb-16 overflow-hidden"
+  className="relative min-h-screen pt-20 pb-10 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -69,7 +69,7 @@ const HomePage = () => {
           showDefaultContent={false}
         />
         
-  <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-center md:items-start justify-center px-4 sm:px-6 lg:px-8 pt-10 md:pt-16 pb-10">
+  <div className="relative z-10 flex min-h-[calc(100vh-8rem)] items-center md:items-start justify-center px-4 sm:px-5 lg:px-8 pt-6 md:pt-16 pb-6">
           <div className="max-w-3xl text-center">
             <motion.h1 
               className="text-4xl md:text-6xl font-bold text-white mb-6"
