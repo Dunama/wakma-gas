@@ -13,11 +13,11 @@ type HeroCarouselProps = {
 };
 
 const DEFAULT_IMAGES = [
-  '/Wakma1.jpg',
-  '/Wakma2.jpg',
-  '/Wakma3.jpg',
-  '/Wakma4.jpg',  
-  '/Wakma5.jpg',
+  'https://wakma-gas.vercel.app/Wakma1.jpg',
+  'https://wakma-gas.vercel.app/Wakma2.jpg',
+  'https://wakma-gas.vercel.app/Wakma3.jpg',
+  'https://wakma-gas.vercel.app/Wakma4.jpg',
+  'https://wakma-gas.vercel.app/Wakma5.jpg',
 ];
 
 // Inject a small stylesheet to hide the left/right nav buttons.

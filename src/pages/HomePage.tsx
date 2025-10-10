@@ -53,21 +53,12 @@ const HomePage = () => {
         {/* Background Carousel */}
         <HeroCarousel 
           images={[
-            // '/gas-truck.jpg',
-            // '/gas-cylinder.jpg',
-            // '/gas-station.jpg',
-            // // '/hero-customer-service.jpg',
-            // // '/hero-delivery.jpg',
-            // '/hero-refilling.jpg',
-            // '/hero-safety.jpg',
-            // '/hero-storage-facility.jpg',
-            // '/hero-technician.jpg',
-            '/Wakma1.jpg',
-            '/Wakma2.jpg',
-            '/Wakma3.jpg',
-            '/Wakma4.jpg',  
-            '/Wakma5.jpg',
-          ]}
+            'https://wakma-gas.vercel.app/Wakma1.jpg',
+            'https://wakma-gas.vercel.app/Wakma2.jpg',
+            'https://wakma-gas.vercel.app/Wakma3.jpg',
+            'https://wakma-gas.vercel.app/Wakma4.jpg',
+            'https://wakma-gas.vercel.app/Wakma5.jpg',
+                    ]}
           autoPlayMs={15000}
           className="absolute inset-0"
           overlayClassName="bg-black/50 backdrop-blur-sm"
