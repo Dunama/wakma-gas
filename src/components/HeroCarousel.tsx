@@ -1,6 +1,5 @@
 import { useEffect, useState, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 type HeroCarouselProps = {
@@ -14,7 +13,7 @@ type HeroCarouselProps = {
 
 const DEFAULT_IMAGES = [
   'https://wakma-gas.vercel.app/Wakma1.jpg',
-  'https://wakma-gas.vercel.app/Wakma2.jpg',
+  // 'https://wakma-gas.vercel.app/Wakma2.jpg',
   'https://wakma-gas.vercel.app/Wakma3.jpg',
   'https://wakma-gas.vercel.app/Wakma4.jpg',
   'https://wakma-gas.vercel.app/Wakma5.jpg',
@@ -39,7 +38,7 @@ if (typeof document !== 'undefined') {
 
 const HeroCarousel = ({
   images,
-  autoPlayMs = 15000,
+  autoPlayMs = 10000,
   className,
   overlayClassName = 'hero-overlay',
   showDefaultContent = true,
@@ -48,7 +47,7 @@ const HeroCarousel = ({
   const imagesKey = images?.join('|') ?? 'default';
   const slideImages = images && images.length > 0 ? images : DEFAULT_IMAGES;
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [direction, setDirection] = useState<1 | -1>(1);
+  const [firstImageLoaded, setFirstImageLoaded] = useState(false);
   const imageCount = slideImages.length;
 
   useEffect(() => {
@@ -56,56 +55,63 @@ const HeroCarousel = ({
   }, [imagesKey]);
 
   useEffect(() => {
-    if (imageCount <= 1 || autoPlayMs <= 0) {
-      return;
-    }
-
+    if (imageCount <= 1 || autoPlayMs <= 0) return;
     const timer = setInterval(() => {
-      setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % imageCount);
     }, autoPlayMs);
-
     return () => clearInterval(timer);
   }, [imageCount, autoPlayMs, imagesKey]);
 
-  const nextSlide = () => {
-    if (imageCount <= 1) return;
-    setDirection(1);
-    setCurrentSlide((prev) => (prev + 1) % imageCount);
-  };
+  // Ken Burns effect variants per slide
+  const kenBurns = {
+    initial: { opacity: 0, scale: 1.05, x: -12, y: -8 },
+    animate: {
+      opacity: 1,
+      scale: 1.18,
+      x: 12,
+      y: 8,
+      transition: { duration: autoPlayMs / 1000, ease: 'easeInOut' },
+    },
+    exit: { opacity: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+  } as const;
 
-  const prevSlide = () => {
-    if (imageCount <= 1) return;
-    setDirection(-1);
-    setCurrentSlide((prev) => (prev - 1 + imageCount) % imageCount);
-  };
-
-  const wrapperClassName = className ?? 'relative h-screen overflow-hidden';
+  // Responsive heights across devices; fall back to provided className when passed
+  const wrapperClassName =
+    className ?? 'relative h-[70vh] sm:h-[75vh] md:h-[80vh] lg:h-screen overflow-hidden bg-black';
 
   return (
     <div className={wrapperClassName}>
       <div className="relative h-full overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${imagesKey}-${currentSlide}`}
-            initial={{ opacity: 0, x: 60 * direction }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -60 * direction }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="absolute inset-0"
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${slideImages[currentSlide]})` }}
+        <div className="absolute inset-0">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={`${imagesKey}-${currentSlide}`}
+              src={slideImages[currentSlide]}
+              alt=""
+              className="absolute inset-0 w-full h-full object-contain sm:object-cover object-center will-change-[opacity,transform]"
+              variants={kenBurns}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              onLoad={() => setFirstImageLoaded(true)}
+              loading={firstImageLoaded ? 'lazy' : 'eager'}
+              decoding="async"
             />
-            {overlayClassName && overlayClassName !== 'none' && (
-              <div
-                className={`absolute inset-0 ${overlayClassName}`}
-                style={{ pointerEvents: 'none' }}
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+          {overlayClassName && overlayClassName !== 'none' && (
+            <div
+              className={`absolute inset-0 ${overlayClassName}`}
+              style={{ pointerEvents: 'none' }}
+            />
+          )}
+        </div>
+
+        {/* Loading overlay (uses LoadingPage styling) */}
+        {!firstImageLoaded && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40">
+            <div className="mx-auto h-12 w-12 md:h-16 md:w-16 rounded-full border-4 border-white/30 border-t-accent-500 animate-spin" aria-label="Loading image" />
+          </div>
+        )}
 
         {(showDefaultContent || children) && (
           <div className="absolute inset-0 z-10 flex items-center justify-center">
@@ -151,42 +157,7 @@ const HeroCarousel = ({
           </div>
         )}
 
-        {imageCount > 1 && (
-          <>
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-40 p-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors pointer-events-auto"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="w-6 h-6 text-white" />
-            </button>
-
-            <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-40 p-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors pointer-events-auto"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="w-6 h-6 text-white" />
-            </button>
-
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex space-x-2">
-              {slideImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    if (index === currentSlide) return;
-                    setDirection(index > currentSlide ? 1 : -1);
-                    setCurrentSlide(index);
-                  }}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentSlide ? 'bg-wakma-orange' : 'bg-white/50'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          </>
-        )}
+        {/* Slideshow controls and dots removed per request */}
       </div>
     </div>
   );

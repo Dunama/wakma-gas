@@ -66,7 +66,7 @@ const AboutPage = () => {
         <HeroCarousel 
           images={[
             'https://wakma-gas.vercel.app/Wakma1.jpg',
-            'https://wakma-gas.vercel.app/Wakma2.jpg',
+            // 'https://wakma-gas.vercel.app/Wakma2.jpg',
             'https://wakma-gas.vercel.app/Wakma3.jpg',
             'https://wakma-gas.vercel.app/Wakma4.jpg',
             'https://wakma-gas.vercel.app/Wakma5.jpg',

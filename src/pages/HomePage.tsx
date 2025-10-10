@@ -36,7 +36,7 @@ const HomePage = () => {
       title: 'Cylinders for Every Household',
       description:
         'Choose from a wide selection of cylinder sizes and finishes, all pressure-tested and supported with ongoing maintenance to match your daily cooking needs.',
-      image: '/cylinders.png',
+      image: '/gaskits.jpg',
       reverse: false
     }
   ];
@@ -54,7 +54,7 @@ const HomePage = () => {
         <HeroCarousel 
           images={[
             'https://wakma-gas.vercel.app/Wakma1.jpg',
-            'https://wakma-gas.vercel.app/Wakma2.jpg',
+            // 'https://wakma-gas.vercel.app/Wakma2.jpg',
             'https://wakma-gas.vercel.app/Wakma3.jpg',
             'https://wakma-gas.vercel.app/Wakma4.jpg',
             'https://wakma-gas.vercel.app/Wakma5.jpg',
@@ -71,7 +71,7 @@ const HomePage = () => {
               className="text-4xl md:text-6xl font-bold text-white mb-6"
               {...fadeInUp}
             >
-              Wakma Gas Nigeria 
+              WAKMA GAS NIGERIA 
             </motion.h1>
             <motion.p 
               className="text-xl md:text-2xl text-white/90 font-semibold mb-8 leading-relaxed"
@@ -159,20 +159,22 @@ const HomePage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <motion.figure
-                  className="w-full md:w-5/12 max-w-sm sm:max-w-md md:max-w-lg mx-auto"
+                  className="w-full md:w-5/12 lg:w-5/12 max-w-[480px] sm:max-w-[560px] md:max-w-[640px] mx-auto"
                   initial={{ opacity: 0, x: feature.reverse ? 80 : -80 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ duration: 0.7, delay: 0.1 + index * 0.1 }}
                 >
-                  <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[5/3] overflow-hidden">
-                    <motion.img
-                      src={feature.image}
-                      alt={feature.title}
-                      className="absolute inset-0 h-full w-full object-cover object-center"
-                      whileHover={{ scale: 1.03 }}
-                      transition={{ type: 'spring', stiffness: 120 }}
-                    />
+                  <div className="relative w-full rounded-2xl md:rounded-3xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
+                    <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[21/9]">
+                      <motion.img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="absolute inset-0 h-full w-full object-contain sm:object-cover object-center"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: 'tween', duration: 0.25 }}
+                      />
+                    </div>
                   </div>
                   <figcaption className="sr-only">{feature.title}</figcaption>
                 </motion.figure>

@@ -168,7 +168,7 @@ const ContactPage = () => {
         <HeroCarousel 
           images={[
         'https://wakma-gas.vercel.app/Wakma1.jpg',
-        'https://wakma-gas.vercel.app/Wakma2.jpg',
+        // 'https://wakma-gas.vercel.app/Wakma2.jpg',
         'https://wakma-gas.vercel.app/Wakma3.jpg',
         'https://wakma-gas.vercel.app/Wakma4.jpg',
         'https://wakma-gas.vercel.app/Wakma5.jpg',
@@ -356,7 +356,7 @@ const ContactPage = () => {
                   <input
                     type="email"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="ddunama2007@gmail.com"
+                    placeholder="example@gmail.com"
                     value={formData.email}
                     onChange={(e) => updateField('email', e.target.value)}
                   />
@@ -427,12 +427,27 @@ const ContactPage = () => {
               transition={{ duration: 0.8 }}
             >
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Find Us</h2>
-              <div className="bg-gradient-to-br from-primary-100 to-accent-100 rounded-lg h-64 flex items-center justify-center mb-6">
-                <div className="text-center">
-                  <MapPin className="h-16 w-16 text-primary-600 mx-auto mb-4" />
-                  <p className="text-gray-700 font-medium">Google Maps Integration</p>
-                  <p className="text-gray-500 text-sm">Interactive map coming soon</p>
-                </div>
+              <div className="mb-6">
+                <a
+                  href="https://maps.app.goo.gl/LeWRf38sGz5NpBfb8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block relative rounded-lg overflow-hidden ring-1 ring-black/10"
+                  aria-label="Open Wakma Gas location in Google Maps"
+                >
+                  <img
+                    src="https://wakma-gas.vercel.app/Wakma5.jpg"
+                    alt="Wakma Gas location preview"
+                    className="w-full h-64 sm:h-72 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 text-white font-semibold drop-shadow">
+                    <MapPin className="h-5 w-5" />
+                    <span>Open in Google Maps</span>
+                  </div>
+                </a>
               </div>
               
               <div className="space-y-4">
