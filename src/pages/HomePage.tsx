@@ -22,14 +22,14 @@ const HomePage = () => {
       title: 'Complete Gas Starter Kits',
       description:
         'Pick up a ready-to-use package that includes a double-burner stove, calibrated regulator, hose, and factory-tested cylinder so you can start cooking safely right away.',
-      image: '/starterkit.png',
+      image: '/Wakma1.jpg',
       reverse: false
     },
     {
       title: 'Professional Cylinder Handling',
       description:
         'Our trained team follows stringent loading and delivery protocols, giving you confidence that every cylinder is filled, sealed, and transported with utmost care.',
-      image: '/safety.png',
+      image: '/Wakma4.jpg',
       reverse: true
     },
     {
