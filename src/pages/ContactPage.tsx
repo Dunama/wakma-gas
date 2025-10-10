@@ -39,6 +39,50 @@ const ContactPage = () => {
     email: false
   });
 
+  // Controlled form state
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: 'ddunama2007@gmail.com',
+    phone: '',
+    service: '',
+    message: ''
+  });
+
+  const [formStatus, setFormStatus] = useState<
+    { state: 'idle' | 'validating' | 'submitting' | 'success' | 'error'; message?: string; errors?: string[] }
+  >({ state: 'idle' });
+
+  const updateField = (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Basic validation
+    setFormStatus({ state: 'validating' });
+    const errors: string[] = [];
+    if (!formData.firstName.trim()) errors.push('First name is required.');
+    if (!formData.email.trim()) errors.push('Email address is required.');
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.push('Enter a valid email address.');
+    if (!formData.message.trim()) errors.push('Please enter a brief message.');
+
+    if (errors.length) {
+      setFormStatus({ state: 'error', errors, message: 'Please fix the highlighted issues.' });
+      return;
+    }
+
+    setFormStatus({ state: 'submitting', message: 'Sending your message...' });
+
+    // Simulate async submission (replace with real API later)
+    setTimeout(() => {
+      // Simulate success
+      setFormStatus({ state: 'success', message: 'Thank you! Your message has been sent successfully.' });
+      // Reset non-persistent fields
+      setFormData((prev) => ({ ...prev, firstName: '', lastName: '', phone: '', service: '', message: '' }));
+    }, 1200);
+  };
+
   const toggleCard = (key: CardKey) => {
     setFlippedCards((prev) => ({
       ...prev,
@@ -60,7 +104,7 @@ const ContactPage = () => {
       backTitle: 'Visit Us',
       backLines: [
         'Opposite Rochas Foundation Academy',
-        'Mubi, Adamawa State, Nigeria'
+        'Mubi Road, Adamawa State, Nigeria'
       ],
       backHint: 'Tap again to flip back',
       ctas: [
@@ -77,19 +121,18 @@ const ContactPage = () => {
       accentClass: 'text-accent-600',
       frontTitle: 'Phone',
       frontLines: [
-        '+234 (0) 803 078 1297',
-        'Available 24/7'
+        'Call us for support & inquiries',
       ],
       frontHint: 'Tap for quick dial options',
       backTitle: 'Call Us Anytime',
       backLines: [
-        'Customer Support: +234 803 078 1297',
-        'Emergency Hotline: +234 708 000 0000'
+        'Customer Support: +234 9032252588',
+        'Emergency Hotline: +234 8145079178'
       ],
       backHint: 'Tap again to flip back',
       ctas: [
-        { label: 'Call Support', href: 'tel:+2348030781297' },
-        { label: 'Call Emergency', href: 'tel:+2347080000000' }
+        { label: 'Call Support', href: 'tel:+2349032252588' },
+        { label: 'Call Emergency', href: 'tel:+2348145079178' }
       ]
     },
     {
@@ -98,18 +141,17 @@ const ContactPage = () => {
       accentClass: 'text-primary-600',
       frontTitle: 'Email',
       frontLines: [
-        'info@wakmagas.com',
-        'We reply within 24 hours'
+        'gas4wakma@gmail.com',
       ],
       frontHint: 'Tap to reveal direct links',
       backTitle: 'Send Us a Message',
       backLines: [
-        'Reach our team at info@wakmagas.com',
+        'Reach our team at gas4wakma@gmail.com',
         'We respond promptly to every request'
       ],
       backHint: 'Tap again to flip back',
       ctas: [
-        { label: 'Compose Email', href: 'mailto:info@wakmagas.com' }
+        { label: 'Compose Email', href: 'mailto:gas4wakma@gmail.com' }
       ]
     }
   ];
@@ -118,19 +160,24 @@ const ContactPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
       <motion.section 
-        className="relative min-h-screen pt-24 pb-16 overflow-hidden"
+        className="relative min-h-screen pt-24 pb-12 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
         <HeroCarousel 
           images={[
-           '/hero-storage-facility.jpg',
-            '/hero-technician.jpg',
-            '/gas-truck.jpg',
-            '/hero-safety.jpg'
+          //  '/hero-storage-facility.jpg',
+          //   '/hero-technician.jpg',
+          //   '/gas-truck.jpg',
+          //   '/hero-safety.jpg'
+            '/Wakma1.jpg',  
+            '/Wakma2.jpg',
+            '/Wakma3.jpg',
+            '/Wakma4.jpg',  
+            '/Wakma5.jpg',
           ]}
-          autoPlayMs={10000}
+          autoPlayMs={15000}
           className="absolute inset-0"
           overlayClassName="bg-black/50 backdrop-blur-sm"
           showDefaultContent={false}
@@ -162,8 +209,7 @@ const ContactPage = () => {
         className="py-20"
         variants={staggerContainer}
         initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.3 }}
+        animate="animate"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
@@ -255,7 +301,31 @@ const ContactPage = () => {
                 <h2 className="text-2xl font-bold text-gray-900">Send us a Message</h2>
               </div>
               
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+                {/* Feedback Messages */}
+                <div aria-live="polite" className="space-y-4">
+                  {formStatus.state === 'success' && (
+                    <div className="rounded-md border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-700 shadow-sm" role="alert">
+                      {formStatus.message}
+                    </div>
+                  )}
+                  {formStatus.state === 'error' && (
+                    <div className="rounded-md border border-red-300 bg-red-50 px-4 py-4 text-sm text-red-700 shadow-sm" role="alert">
+                      <p className="font-semibold mb-2">{formStatus.message}</p>
+                      <ul className="list-disc list-inside space-y-1">
+                        {formStatus.errors?.map((err, i) => (
+                          <li key={i}>{err}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {formStatus.state === 'submitting' && (
+                    <div className="flex items-center gap-3 text-sm text-accent-600" role="status">
+                      <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-accent-400 border-t-transparent" />
+                      {formStatus.message}
+                    </div>
+                  )}
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -265,6 +335,8 @@ const ContactPage = () => {
                       type="text"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                       placeholder="Your first name"
+                      value={formData.firstName}
+                      onChange={(e) => updateField('firstName', e.target.value)}
                     />
                   </div>
                   <div>
@@ -275,6 +347,8 @@ const ContactPage = () => {
                       type="text"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                       placeholder="Your last name"
+                      value={formData.lastName}
+                      onChange={(e) => updateField('lastName', e.target.value)}
                     />
                   </div>
                 </div>
@@ -286,7 +360,9 @@ const ContactPage = () => {
                   <input
                     type="email"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="your.email@example.com"
+                    placeholder="ddunama2007@gmail.com"
+                    value={formData.email}
+                    onChange={(e) => updateField('email', e.target.value)}
                   />
                 </div>
                 
@@ -298,6 +374,8 @@ const ContactPage = () => {
                     type="tel"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                     placeholder="+234 XXX XXX XXXX"
+                    value={formData.phone}
+                    onChange={(e) => updateField('phone', e.target.value)}
                   />
                 </div>
                 
@@ -305,13 +383,17 @@ const ContactPage = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Service Needed
                   </label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200">
-                    <option>Select a service</option>
-                    <option>Gas Refilling</option>
-                    <option>Cylinder Sales</option>
-                    <option>Gas Accessories</option>
-                    <option>Safety Checks & Maintenance</option>
-                    <option>General Inquiry</option>
+                  <select
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                    value={formData.service}
+                    onChange={(e) => updateField('service', e.target.value)}
+                  >
+                    <option value="">Select a service</option>
+                    <option value="Gas Refilling">Gas Refilling</option>
+                    <option value="Cylinder Sales">Cylinder Sales</option>
+                    <option value="Gas Accessories">Gas Accessories</option>
+                    <option value="Safety Checks & Maintenance">Safety Checks & Maintenance</option>
+                    <option value="General Inquiry">General Inquiry</option>
                   </select>
                 </div>
                 
@@ -323,16 +405,19 @@ const ContactPage = () => {
                     rows={4}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                     placeholder="Tell us how we can help you..."
+                    value={formData.message}
+                    onChange={(e) => updateField('message', e.target.value)}
                   ></textarea>
                 </div>
                 
                 <motion.button
                   type="submit"
-                  className="glow-button w-full"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="glow-button w-full disabled:cursor-not-allowed"
+                  whileHover={{ scale: formStatus.state === 'submitting' ? 1 : 1.02 }}
+                  whileTap={{ scale: formStatus.state === 'submitting' ? 1 : 0.98 }}
+                  disabled={formStatus.state === 'submitting'}
                 >
-                  Send Message
+                  {formStatus.state === 'submitting' ? 'Sending...' : 'Send Message'}
                 </motion.button>
               </form>
             </motion.div>
@@ -359,7 +444,7 @@ const ContactPage = () => {
                   <Clock className="h-5 w-5 text-primary-600" />
                   <div>
                     <p className="font-medium text-gray-900">Business Hours</p>
-                    <p className="text-gray-600 text-sm">Monday - Sunday: 6:00 AM - 10:00 PM</p>
+                    <p className="text-gray-600 text-sm">Monday - Sunday: 6:00 AM - 6:00 PM</p>
                   </div>
                 </div>
                 

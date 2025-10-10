@@ -34,11 +34,11 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { 
-            boxShadow: '0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 15px #3b82f6',
+          '0%': {
+            boxShadow: '0 0 5px #f97316, 0 0 10px #f97316, 0 0 15px #f97316',
           },
-          '100%': { 
-            boxShadow: '0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #3b82f6, 0 0 40px #3b82f6',
+          '100%': {
+            boxShadow: '0 0 10px #f97316, 0 0 20px #f97316, 0 0 30px #f97316, 0 0 40px #f97316',
           },
         },
       },

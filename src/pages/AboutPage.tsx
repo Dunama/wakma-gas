@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import HeroCarousel from '../components/HeroCarousel';
-import { User, Target, Heart, Award } from 'lucide-react';
+// import { User, Target, Heart, Award } from 'lucide-react';
 
 const AboutPage = () => {
   const fadeInUp = {
@@ -17,21 +17,40 @@ const AboutPage = () => {
     }
   };
 
-  const values = [
+  // Each value item can have either a single string description OR an array of bullet strings
+  const values: Array<{
+    title: string;
+    description: string | string[];
+    color?: 'primary' | 'accent';
+  }> = [
     {
-      icon: Heart,
-      title: "Integrity",
-      description: "We conduct our business with honesty, transparency, and ethical practices in every interaction."
+      title: "Mission",
+      description: "Our mission is to become one of the biggest producers and distributors of cooking gas and related products in Nigeria.",
+      color: 'primary'
     },
     {
-      icon: Award,
-      title: "Safety",
-      description: "Safety is our top priority. We maintain the highest standards in all our operations and services."
+      title: "Vision",
+      description: [
+        "Provide quality cooking gas to the public.",
+        "To use modern machines and equipment in hygienic environment.",
+        "Creating un-interrupted availability of cooking gas and accessories.",
+        "To create employment opportunities to the citizens of the state.",
+        "To grow into a conglomerate."
+      ],
+      color: 'primary'
     },
     {
-      icon: Target,
-      title: "Customer-First Service",
-      description: "Our customers are at the heart of everything we do. We strive to exceed expectations every time."
+      title: "Values",
+      description:[
+        "Constant availability of the products.",
+        "Quality products",
+        "Production in hygienic environment.",
+        "Timely delivery.",
+        "Quality training of potential producers.",
+        "Good corporate social responsibility.",
+        "Good corporate citizen."
+      ],
+      color: 'primary'
     }
   ];
 
@@ -46,13 +65,14 @@ const AboutPage = () => {
       >
         <HeroCarousel 
           images={[
-            '/hero-storage-facility.jpg',
-            '/hero-technician.jpg',
-            '/gas-truck.jpg',
-            '/hero-safety.jpg'
+            '/Wakma1.jpg',
+            '/Wakma2.jpg',
+            '/Wakma3.jpg',
+            '/Wakma4.jpg',  
+            '/Wakma5.jpg',
           ]}
           className="absolute inset-0"
-          autoPlayMs={10000}
+          autoPlayMs={15000}
           overlayClassName="bg-black/50 backdrop-blur-sm"
           showDefaultContent={false}
         />
@@ -93,7 +113,7 @@ const AboutPage = () => {
               transition={{ delay: 0.2 }}
             >
               <div className="bg-gradient-to-br from-primary-100 to-accent-100 rounded-2xl p-8 text-center">
-                <User className="h-24 w-24 text-primary-600 mx-auto mb-6" />
+                {/* <User className="h-24 w-24 text-primary-600 mx-auto mb-6" /> */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Dr. Michael Zira</h3>
                 <p className="text-lg text-gray-600 mb-4">Founder & CEO</p>
                 <p className="text-gray-700 leading-relaxed">
@@ -106,7 +126,7 @@ const AboutPage = () => {
               {...fadeInUp}
               transition={{ delay: 0.4 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6">Our Story</h2>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 Founded by Dr. Michael Zira, Wakma Gas has been serving the Adamawa community with 
                 dedication and excellence since its establishment. Our journey began with a simple 
@@ -118,13 +138,6 @@ const AboutPage = () => {
                 as a brand built on trust and excellence in energy solutions. We've grown from a small 
                 local business to a trusted partner for thousands of families across Adamawa State.
               </p>
-              <motion.button 
-                className="glow-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Learn More About Our Journey
-              </motion.button>
             </motion.div>
           </div>
         </div>
@@ -140,7 +153,7 @@ const AboutPage = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-16" variants={fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission & Values</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6">Our Mission, Vision & Values</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We believe in integrity, safety, and customer-first service. These core values guide 
               every decision we make and every service we provide.
@@ -156,9 +169,17 @@ const AboutPage = () => {
                 whileHover={{ y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <value.icon className="h-12 w-12 text-primary-600 mx-auto mb-6" />
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                {/* <value.icon className="h-12 w-12 text-primary-600 mx-auto mb-6" /> */}
+                <h3 className={`text-xl font-bold mb-4 ${value.color === 'primary' ? 'text-primary-600' : value.color === 'accent' ? 'text-accent-600' : 'text-gray-900'}`}>{value.title}</h3>
+                {Array.isArray(value.description) ? (
+                  <ul className="text-gray-600 leading-relaxed list-disc list-inside text-left space-y-2">
+                    {value.description.map((point, i) => (
+                      <li key={i}>{point}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                )}
               </motion.div>
             ))}
           </div>

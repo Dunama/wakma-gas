@@ -13,7 +13,7 @@ const Navbar = () => {
     `${linkBase} ${
       isActive
         ? 'text-primary-600 bg-primary-50'
-        : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
+        : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
     }`;
 
   const closeMenu = () => setOpen(false);
@@ -21,16 +21,16 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16 sm:h-18 md:h-20">
+  <div className="flex items-center h-20 md:h-24">
           <div className="flex items-center">
             <NavLink to="/" className="flex items-center space-x-2">
               <img
                 src="/wakmaLogo.png"
                 alt="Wakma Gas logo"
-                className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 object-contain select-none"
+                className="h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 object-contain select-none"
                 draggable={false}
               />
-              <span className="text-2xl md:text-3xl font-bold text-primary-800">Wakma Gas</span>
+              <span className="text-3xl md:text-4xl font-bold text-primary-800 leading-none">Wakma Gas</span>
             </NavLink>
           </div>
 
@@ -55,7 +55,7 @@ const Navbar = () => {
           {/* Hamburger button (mobile & tablet) */}
           <button
             type="button"
-            className="ml-auto inline-flex items-center justify-center rounded-md p-3 md:p-3.5 text-gray-700 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 lg:hidden"
+            className="ml-auto inline-flex items-center justify-center rounded-md p-3 md:p-3.5 text-gray-700 hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-orange-500 lg:hidden"
             aria-controls="mobile-menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}

@@ -59,12 +59,17 @@ const ServicesPage = () => {
       >
         <HeroCarousel 
           images={[
-           '/hero-storage-facility.jpg',
-           '/hero-technician.jpg',
-           '/gas-truck.jpg',
-           '/hero-safety.jpg'
+          //  '/hero-storage-facility.jpg',
+          //  '/hero-technician.jpg',
+          //  '/gas-truck.jpg',
+          //  '/hero-safety.jpg'
+            '/Wakma1.jpg',
+            '/Wakma2.jpg',
+            '/Wakma3.jpg',
+            '/Wakma4.jpg',  
+            '/Wakma5.jpg',
           ]}
-          autoPlayMs={10000}
+          autoPlayMs={15000}
           className="absolute inset-0"
           overlayClassName="bg-black/50 backdrop-blur-sm"
           showDefaultContent={false}
@@ -85,8 +90,7 @@ const ServicesPage = () => {
               {...fadeInUp}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              At Wakma Gas, we provide a wide range of services to meet your household and commercial cooking needs.
-              Each service is handled with the highest safety standards and customer satisfaction in mind.
+              From Your Cooking Gas (LPG) to Compressed Natural Gas (CNG), We offer a wide range of services tailored to your needs.
             </motion.p>
           </div>
         </div>

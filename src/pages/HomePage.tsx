@@ -55,15 +55,20 @@ const HomePage = () => {
           images={[
             // '/gas-truck.jpg',
             // '/gas-cylinder.jpg',
-            '/gas-station.jpg',
-            // '/hero-customer-service.jpg',
-            // '/hero-delivery.jpg',
-            '/hero-refilling.jpg',
-            '/hero-safety.jpg',
-            '/hero-storage-facility.jpg',
-            '/hero-technician.jpg',
+            // '/gas-station.jpg',
+            // // '/hero-customer-service.jpg',
+            // // '/hero-delivery.jpg',
+            // '/hero-refilling.jpg',
+            // '/hero-safety.jpg',
+            // '/hero-storage-facility.jpg',
+            // '/hero-technician.jpg',
+            '/Wakma1.jpg',
+            '/Wakma2.jpg',
+            '/Wakma3.jpg',
+            '/Wakma4.jpg',  
+            '/Wakma5.jpg',
           ]}
-          autoPlayMs={10000}
+          autoPlayMs={15000}
           className="absolute inset-0"
           overlayClassName="bg-black/50 backdrop-blur-sm"
           showDefaultContent={false}
@@ -82,7 +87,7 @@ const HomePage = () => {
               {...fadeInUp}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Your trusted partner in safe, reliable, and affordable cooking gas services in Adamawa State.
+              Discover safe, affordable cooking gas refilling and cylinder services in Adamawa.
             </motion.p>
           
             <motion.div

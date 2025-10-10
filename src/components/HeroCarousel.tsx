@@ -1,4 +1,3 @@
-// export default HeroCarousel;
 import { useEffect, useState, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -14,10 +13,11 @@ type HeroCarouselProps = {
 };
 
 const DEFAULT_IMAGES = [
-  '/hero-storage-facility.jpg',
-  '/hero-technician.jpg',
-  '/gas-truck.jpg',
-  '/hero-safety.jpg'
+  '/Wakma1.jpg',
+  '/Wakma2.jpg',
+  '/Wakma3.jpg',
+  '/Wakma4.jpg',  
+  '/Wakma5.jpg',
 ];
 
 // Inject a small stylesheet to hide the left/right nav buttons.
@@ -39,7 +39,7 @@ if (typeof document !== 'undefined') {
 
 const HeroCarousel = ({
   images,
-  autoPlayMs = 10000,
+  autoPlayMs = 15000,
   className,
   overlayClassName = 'hero-overlay',
   showDefaultContent = true,
@@ -140,7 +140,7 @@ const HeroCarousel = ({
                     </Link>
                     <Link
                       to="/contact"
-                      className="px-8 py-6 text-lg border border-white text-white hover:bg-white hover:text-wakma-blue rounded-md inline-flex items-center justify-center transition-colors"
+                      className="px-8 py-6 text-lg border border-white text-white hover:bg-accent-600 hover:border-accent-600 hover:text-white rounded-md inline-flex items-center justify-center transition-colors"
                     >
                       Contact Us
                     </Link>

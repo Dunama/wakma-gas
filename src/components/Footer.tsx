@@ -5,10 +5,17 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Brand blurb */}
         <div>
-          <div className="flex items-center space-x-2 mb-4">
-            <div className="h-8 w-8 rounded-full bg-accent-500" />
-            <span className="text-2xl font-bold">Wakma Gas</span>
+          <div className="flex items-center space-x-3 mb-2">
+            <img
+              src="/wakmaLogo.png"
+              alt="Wakma Gas logo"
+              className="h-10 w-10 md:h-12 md:w-12 object-contain select-none drop-shadow"
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="text-2xl md:text-3xl font-bold tracking-tight">Wakma Gas</span>
           </div>
+          <div className="h-1 w-24 bg-accent-500 mb-6" />
           <p className="text-white/90 leading-relaxed">
             Wakma Gas is a full-service LPG company in Nigeria focused on safe and
             reliable distribution of cooking gas and accessories.
@@ -49,41 +56,39 @@ const Footer = () => {
 
         {/* Contact Company */}
         <div>
-          <h3 className="text-xl font-semibold mb-4">Contact Company</h3>
+          <h3 className="text-xl font-semibold mb-2">Contact Company</h3>
+          <div className="h-1 w-24 bg-accent-500 mb-6" />
           <ul className="space-y-3 text-white/90">
-            <li>+234 (0) 803 078 1297</li>
-            <li>info@wakmagas.com</li>
+            <li>+234 9032252588</li>
+            <li>gas4wakma@gmail.com</li>
             <li>Opposite Rochas Foundation Academy, Adamawa</li>
             <li>www.wakmagas.com</li>
           </ul>
         </div>
 
-        {/* Newsletter */}
+        {/* Quick Links */}
         <div>
-          <h3 className="text-xl font-semibold">Wakma Gas Newsletter</h3>
-          <div className="h-1 w-32 bg-accent-500 mt-2 mb-6" />
-          <p className="text-white/90 mb-6">
-            Subscribe now to be the first to be updated about our latest news and events.
-          </p>
-          <div className="flex rounded-md overflow-hidden shadow-sm shadow-primary-900/20">
-            <input
-              className="flex-1 px-4 py-3 text-gray-900 focus:outline-none"
-              placeholder="Email"
-            />
-            <button className="px-6 bg-accent-600 hover:bg-accent-500 transition-colors">→</button>
-          </div>
-          <p className="mt-4 text-white/80 text-sm">Have a question? <span className="underline">Click here</span></p>
+          <h3 className="text-xl font-semibold">Quick Links</h3>
+          <div className="h-1 w-24 bg-accent-500 mt-2 mb-6" />
+          <ul className="space-y-3 text-white/90">
+            <li>
+              <a href="/" className="hover:text-accent-400 transition-colors">Home</a>
+            </li>
+            <li>
+              <a href="/about" className="hover:text-accent-400 transition-colors">About Us</a>
+            </li>
+            <li>
+              <a href="/services" className="hover:text-accent-400 transition-colors">Services</a>
+            </li>
+            <li>
+              <a href="/contact" className="hover:text-accent-400 transition-colors">Contact</a>
+            </li>
+          </ul>
         </div>
       </div>
-
       <div className="bg-accent-600 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-sm">
           <p>© {new Date().getFullYear()} Wakma Gas Ltd. All rights reserved.</p>
-          <div className="space-x-6 mt-2 md:mt-0">
-            <span>Sitemap</span>
-            <span>Terms of Service</span>
-            <span>Privacy Policy</span>
-          </div>
         </div>
       </div>
     </footer>
