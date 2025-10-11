@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import HeroCarousel from '../components/HeroCarousel';
 // import { User, Target, Heart, Award } from 'lucide-react';
 
 const AboutPage = () => {
@@ -63,19 +62,19 @@ const AboutPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <HeroCarousel 
-          images={[
-            'https://wakma-gas.vercel.app/Wakma1.jpg',
-            // 'https://wakma-gas.vercel.app/Wakma2.jpg',
-            'https://wakma-gas.vercel.app/Wakma3.jpg',
-            'https://wakma-gas.vercel.app/Wakma4.jpg',
-            'https://wakma-gas.vercel.app/Wakma5.jpg',
-          ]}
-          className="absolute inset-0"
-          autoPlayMs={15000}
-          overlayClassName="bg-black/50 backdrop-blur-sm"
-          showDefaultContent={false}
-        />
+        {/* Static background image for About (wakma4) with Ken Burns */}
+        <div className="absolute inset-0">
+          <motion.img
+            src="/wamka4.jpg"
+            alt="About Wakma Gas background"
+            className="absolute inset-0 w-full h-full object-cover will-change-transform"
+            initial={{ scale: 1, x: 0, y: 0 }}
+            animate={{ scale: [1, 1.1, 1], x: [0, -10, 0], y: [0, 6, 0] }}
+            transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
+          />
+        </div>
+        {/* White transparent overlay above image */}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
         
         
         

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import HeroCarousel from '../components/HeroCarousel';
 import { MapPin, Phone, Mail, MessageSquare, Clock, Users } from 'lucide-react';
 
 type CardKey = 'location' | 'phone' | 'email';
@@ -39,11 +38,68 @@ const ContactPage = () => {
     email: false
   });
 
+  // Common country calling codes (extend as needed)
+  const countryCodes = [
+    // Africa (selected)
+    { code: '+20', label: 'Egypt (+20)' },
+    { code: '+221', label: 'Senegal (+221)' },
+    { code: '+225', label: 'Ivory Coast (+225)' },
+    { code: '+227', label: 'Niger (+227)' },
+    { code: '+228', label: 'Togo (+228)' },
+    { code: '+229', label: 'Benin (+229)' },
+    { code: '+231', label: 'Liberia (+231)' },
+    { code: '+232', label: 'Sierra Leone (+232)' },
+    { code: '+233', label: 'Ghana (+233)' },
+    { code: '+234', label: 'Nigeria (+234)' },
+    { code: '+235', label: 'Chad (+235)' },
+    { code: '+237', label: 'Cameroon (+237)' },
+    { code: '+250', label: 'Rwanda (+250)' },
+    { code: '+251', label: 'Ethiopia (+251)' },
+    { code: '+254', label: 'Kenya (+254)' },
+    { code: '+255', label: 'Tanzania (+255)' },
+    { code: '+256', label: 'Uganda (+256)' },
+    { code: '+263', label: 'Zimbabwe (+263)' },
+    { code: '+27', label: 'South Africa (+27)' },
+
+    // Middle East
+    { code: '+966', label: 'Saudi Arabia (+966)' },
+    { code: '+971', label: 'United Arab Emirates (+971)' },
+    { code: '+974', label: 'Qatar (+974)' },
+
+    // Europe (selected)
+    { code: '+30', label: 'Greece (+30)' },
+    { code: '+31', label: 'Netherlands (+31)' },
+    { code: '+33', label: 'France (+33)' },
+    { code: '+34', label: 'Spain (+34)' },
+    { code: '+39', label: 'Italy (+39)' },
+    { code: '+44', label: 'United Kingdom (+44)' },
+    { code: '+49', label: 'Germany (+49)' },
+
+    // Asia (selected)
+    { code: '+60', label: 'Malaysia (+60)' },
+    { code: '+62', label: 'Indonesia (+62)' },
+    { code: '+63', label: 'Philippines (+63)' },
+    { code: '+65', label: 'Singapore (+65)' },
+    { code: '+81', label: 'Japan (+81)' },
+    { code: '+86', label: 'China (+86)' },
+    { code: '+91', label: 'India (+91)' },
+    { code: '+92', label: 'Pakistan (+92)' },
+    { code: '+880', label: 'Bangladesh (+880)' },
+
+    // Americas & Oceania (selected)
+    { code: '+1', label: 'United States / Canada (+1)' },
+    { code: '+52', label: 'Mexico (+52)' },
+    { code: '+55', label: 'Brazil (+55)' },
+    { code: '+61', label: 'Australia (+61)' },
+    { code: '+64', label: 'New Zealand (+64)' },
+  ];
+
   // Controlled form state
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: 'ddunama2007@gmail.com',
+    countryCode: '+234',
     phone: '',
     service: '',
     message: ''
@@ -67,6 +123,11 @@ const ContactPage = () => {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.push('Enter a valid email address.');
     if (!formData.message.trim()) errors.push('Please enter a brief message.');
 
+    // Optional: light phone validation if user entered a number
+    if (formData.phone && formData.phone.replace(/\D/g, '').length < 6) {
+      errors.push('Please enter a valid phone number (at least 6 digits).');
+    }
+
     if (errors.length) {
       setFormStatus({ state: 'error', errors, message: 'Please fix the highlighted issues.' });
       return;
@@ -74,7 +135,14 @@ const ContactPage = () => {
 
     setFormStatus({ state: 'submitting', message: 'Sending your message...' });
 
-    // Simulate async submission (replace with real API later)
+    // Example: combine country code + local number for API usage
+    const fullPhone = formData.phone
+      ? `${formData.countryCode}${formData.phone.replace(/\D/g, '')}`
+      : '';
+
+  // Simulate async submission (replace with real API later). fullPhone would be sent to backend.
+  // eslint-disable-next-line no-console
+  console.log('Submitting phone:', fullPhone);
     setTimeout(() => {
       // Simulate success
       setFormStatus({ state: 'success', message: 'Thank you! Your message has been sent successfully.' });
@@ -165,19 +233,19 @@ const ContactPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <HeroCarousel 
-          images={[
-        'https://wakma-gas.vercel.app/Wakma1.jpg',
-        // 'https://wakma-gas.vercel.app/Wakma2.jpg',
-        'https://wakma-gas.vercel.app/Wakma3.jpg',
-        'https://wakma-gas.vercel.app/Wakma4.jpg',
-        'https://wakma-gas.vercel.app/Wakma5.jpg',
-          ]}
-          autoPlayMs={1000}
-          className="absolute inset-0"
-          overlayClassName="bg-black/50 backdrop-blur-sm"
-          showDefaultContent={false}
-        />
+        {/* Static background image for Contact with Ken Burns */}
+        <div className="absolute inset-0">
+          <motion.img
+            src="/Wakma1.jpg"
+            alt="Contact Wakma Gas background"
+            className="absolute inset-0 w-full h-full object-cover will-change-transform"
+            initial={{ scale: 1, x: 0, y: 0 }}
+            animate={{ scale: [1, 1.1, 1], x: [0, 10, 0], y: [0, 5, 0] }}
+            transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
+          />
+        </div>
+        {/* White transparent overlay above image */}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
         
         
         
@@ -366,13 +434,29 @@ const ContactPage = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Phone Number
                   </label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="+234 XXX XXX XXXX"
-                    value={formData.phone}
-                    onChange={(e) => updateField('phone', e.target.value)}
-                  />
+                  <div className="flex gap-3">
+                    <select
+                      aria-label="Country calling code"
+                      className="w-36 px-3 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                      value={formData.countryCode}
+                      onChange={(e) => updateField('countryCode', e.target.value)}
+                    >
+                      {countryCodes.map((c) => (
+                        <option key={c.code} value={c.code}>{c.label}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="tel"
+                      aria-label="Local phone number"
+                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                      placeholder="803 123 4567"
+                      value={formData.phone}
+                      onChange={(e) => updateField('phone', e.target.value)}
+                    />
+                  </div>
+                  {formData.phone && (
+                    <p className="mt-2 text-xs text-gray-500">Will dial: {`${formData.countryCode}${formData.phone.replace(/\D/g, '')}`}</p>
+                  )}
                 </div>
                 
                 <div>

@@ -12,11 +12,16 @@ type HeroCarouselProps = {
 };
 
 const DEFAULT_IMAGES = [
-  'https://wakma-gas.vercel.app/Wakma1.jpg',
-  // 'https://wakma-gas.vercel.app/Wakma2.jpg',
-  'https://wakma-gas.vercel.app/Wakma3.jpg',
-  'https://wakma-gas.vercel.app/Wakma4.jpg',
-  'https://wakma-gas.vercel.app/Wakma5.jpg',
+  // 'https://wakma-gas.vercel.app/Wakma1.jpg',
+  // // 'https://wakma-gas.vercel.app/Wakma2.jpg',
+  // 'https://wakma-gas.vercel.app/Wakma3.jpg',
+  // // 'https://wakma-gas.vercel.app/Wakma4.jpg',
+  // 'https://wakma-gas.vercel.app/Wakma5.jpg',
+  'Wakma1.jpg',
+  // 'Wakma2.jpg',
+  'Wakma3.jpg',
+  // 'Wakma4.jpg',
+  'Wakma5.jpg',
 ];
 
 // Inject a small stylesheet to hide the left/right nav buttons.
@@ -47,7 +52,6 @@ const HeroCarousel = ({
   const imagesKey = images?.join('|') ?? 'default';
   const slideImages = images && images.length > 0 ? images : DEFAULT_IMAGES;
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [firstImageLoaded, setFirstImageLoaded] = useState(false);
   const imageCount = slideImages.length;
 
   useEffect(() => {
@@ -72,7 +76,7 @@ const HeroCarousel = ({
       y: 8,
       transition: { duration: autoPlayMs / 1000, ease: 'easeInOut' },
     },
-    exit: { opacity: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+    exit: { opacity: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   } as const;
 
   // Responsive heights across devices; fall back to provided className when passed
@@ -93,9 +97,7 @@ const HeroCarousel = ({
               initial="initial"
               animate="animate"
               exit="exit"
-              onLoad={() => setFirstImageLoaded(true)}
-              loading={firstImageLoaded ? 'lazy' : 'eager'}
-              decoding="async"
+              
             />
           </AnimatePresence>
           {overlayClassName && overlayClassName !== 'none' && (
@@ -106,12 +108,6 @@ const HeroCarousel = ({
           )}
         </div>
 
-        {/* Loading overlay (uses LoadingPage styling) */}
-        {!firstImageLoaded && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40">
-            <div className="mx-auto h-12 w-12 md:h-16 md:w-16 rounded-full border-4 border-white/30 border-t-accent-500 animate-spin" aria-label="Loading image" />
-          </div>
-        )}
 
         {(showDefaultContent || children) && (
           <div className="absolute inset-0 z-10 flex items-center justify-center">

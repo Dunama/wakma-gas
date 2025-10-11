@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import HeroCarousel from '../components/HeroCarousel';
 
 
 const HomePage = () => {
@@ -29,7 +28,7 @@ const HomePage = () => {
       title: 'Professional Cylinder Handling',
       description:
         'Our trained team follows stringent loading and delivery protocols, giving you confidence that every cylinder is filled, sealed, and transported with utmost care.',
-      image: '/Wakma4.jpg',
+      image: '/wakma5.jpg',
       reverse: true
     },
     {
@@ -50,31 +49,33 @@ const HomePage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Background Carousel */}
-        <HeroCarousel 
-          images={[
-            'https://wakma-gas.vercel.app/Wakma1.jpg',
-            // 'https://wakma-gas.vercel.app/Wakma2.jpg',
-            'https://wakma-gas.vercel.app/Wakma3.jpg',
-            'https://wakma-gas.vercel.app/Wakma4.jpg',
-            'https://wakma-gas.vercel.app/Wakma5.jpg',
-                    ]}
-          autoPlayMs={15000}
-          className="absolute inset-0"
-          overlayClassName="bg-black/50 backdrop-blur-sm"
-          showDefaultContent={false}
-        />
+        {/* Static background image with mobile variant */}
+        <div className="absolute inset-0">
+          <picture>
+            <source media="(max-width: 640px)" srcSet="/wakma5mb.jpg" />
+            <motion.img
+              src="/wakma5.jpg"
+              alt="Wakma Gas background"
+              className="absolute inset-0 w-full h-full object-cover will-change-transform"
+              initial={{ scale: 1, x: 0, y: 0 }}
+              animate={{ scale: [1, 1.1, 1], x: [0, 15, 0], y: [0, 8, 0] }}
+              transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity }}
+            />
+          </picture>
+        </div>
+        {/* White transparent overlay above image */}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
         
   <div className="relative z-10 flex min-h-[calc(100vh-8rem)] items-center md:items-start justify-center px-4 sm:px-5 lg:px-8 pt-6 md:pt-16 pb-6">
           <div className="max-w-3xl text-center">
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow"
               {...fadeInUp}
             >
               WAKMA GAS NIGERIA 
             </motion.h1>
             <motion.p 
-              className="text-xl md:text-2xl text-white/90 font-semibold mb-8 leading-relaxed"
+              className="text-xl md:text-2xl text-white/90 font-semibold mb-8 leading-relaxed drop-shadow"
               {...fadeInUp}
               transition={{ delay: 0.2, duration: 0.6 }}
             >

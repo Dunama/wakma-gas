@@ -89,6 +89,15 @@ const Footer = () => {
       <div className="bg-accent-600 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-sm">
           <p>© {new Date().getFullYear()} Wakma Gas Ltd. All rights reserved.</p>
+          <a
+            href="https://dunama.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 md:mt-0 text-white/90 hover:text-white underline-offset-4 hover:underline"
+            aria-label="Designed by Dunama"
+          >
+            Designed by Dunama
+          </a>
         </div>
       </div>
     </footer>
