@@ -28,6 +28,7 @@ const AboutPage = () => {
       color: 'primary'
     },
     {
+      
       title: "Vision",
       description: [
         "Provide quality cooking gas to the public.",
@@ -68,6 +69,8 @@ const AboutPage = () => {
             src="/wamka4.jpg"
             alt="About Wakma Gas background"
             className="absolute inset-0 w-full h-full object-cover will-change-transform"
+            loading="eager"
+            decoding="async"
             initial={{ scale: 1, x: 0, y: 0 }}
             animate={{ scale: [1, 1.1, 1], x: [0, -10, 0], y: [0, 6, 0] }}
             transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
@@ -125,7 +128,8 @@ const AboutPage = () => {
               {...fadeInUp}
               transition={{ delay: 0.4 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6">Our Story</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">Our Story</h2>
+              <div className="h-0.5 w-20 bg-orange-500 rounded mb-6"></div>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 Founded by Dr. Michael Zira, Wakma Gas has been serving the Adamawa community with 
                 dedication and excellence since its establishment. Our journey began with a simple 
@@ -152,7 +156,8 @@ const AboutPage = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-16" variants={fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6">Our Mission, Vision & Values</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">Our Mission, Vision & Values</h2>
+            <div className="h-0.5 w-24 bg-orange-500 rounded mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We believe in integrity, safety, and customer-first service. These core values guide 
               every decision we make and every service we provide.
@@ -169,11 +174,15 @@ const AboutPage = () => {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 {/* <value.icon className="h-12 w-12 text-primary-600 mx-auto mb-6" /> */}
-                <h3 className={`text-xl font-bold mb-4 ${value.color === 'primary' ? 'text-primary-600' : value.color === 'accent' ? 'text-accent-600' : 'text-gray-900'}`}>{value.title}</h3>
+                <h3 className={`text-xl font-bold mb-2 ${value.color === 'primary' ? 'text-primary-600' : value.color === 'accent' ? 'text-accent-600' : 'text-gray-900'}`}>{value.title}</h3>
+                <div className="h-0.5 w-12 bg-orange-500 rounded mx-auto mb-4"></div>
                 {Array.isArray(value.description) ? (
-                  <ul className="text-gray-600 leading-relaxed list-disc list-inside text-left space-y-2">
+                  <ul className="text-left space-y-2">
                     {value.description.map((point, i) => (
-                      <li key={i}>{point}</li>
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="mt-2 h-2 w-2 rounded-full bg-orange-500" />
+                        <span className="text-gray-600 leading-relaxed">{point}</span>
+                      </li>
                     ))}
                   </ul>
                 ) : (

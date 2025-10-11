@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Fuel, Package, Settings, Shield } from 'lucide-react';
+import { Fuel, Package, Settings, Shield, Leaf } from 'lucide-react';
 
 const ServicesPage = () => {
   const fadeInUp = {
@@ -23,6 +23,18 @@ const ServicesPage = () => {
       description: "Fast, safe, and accurate refills for your cylinders with professional handling and quality assurance.",
       features: ["Quick turnaround time", "Safety certified process", "Accurate measurements", "Professional handling"],
       color: "primary"
+    },
+    {
+      icon: Leaf,
+      title: "Compressed Natural Gas (CNG)",
+      description: "CNG is natural gas stored under high pressure. It's a cleaner, efficient fuel option for vehicles and generators, helping reduce running costs and emissions.",
+      features: [
+        "Full meaning: Compressed Natural Gas",
+        "Lower emissions than petrol or diesel",
+        "Reliable supply and safe handling",
+        "Support for fleets, businesses, and homes"
+      ],
+      color: "accent"
     },
     {
       icon: Package,
@@ -62,6 +74,8 @@ const ServicesPage = () => {
             src="/wakma3.jpg"
             alt="Wakma Gas services background"
             className="absolute inset-0 w-full h-full object-cover will-change-transform"
+            loading="eager"
+            decoding="async"
             initial={{ scale: 1, x: 0, y: 0 }}
             animate={{ scale: [1, 1.1, 1], x: [0, 12, 0], y: [0, 6, 0] }}
             transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
@@ -90,6 +104,74 @@ const ServicesPage = () => {
           </div>
         </div>
       </motion.section>
+
+      {/* Gas Cylinders Showcase (compact with copy) */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Image: smaller, keeps 4:3 ratio */}
+            <div className="mx-auto w-full max-w-md md:max-w-lg">
+              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
+                <img
+                  src="/gascylinders.jpg"
+                  alt="Assorted LPG gas cylinders in different sizes and colors"
+                  className="absolute inset-0 h-full w-full object-contain object-center"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+            </div>
+
+            {/* Copy: headline and bullets */}
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Cylinders for Every Home</h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                Choose from a wide range of LPG cylinder sizes—each pressure‑tested, safe, and ready for daily cooking.
+                We provide expert guidance to help you pick the right size for your family and usage.
+              </p>
+              <ul className="text-gray-700 space-y-2 max-w-xl mx-auto md:mx-0">
+                <li className="flex items-start gap-3"><span className="mt-1 h-2 w-2 rounded-full bg-primary-500" /> 3kg • 6kg • 12.5kg • 25kg options</li>
+                <li className="flex items-start gap-3"><span className="mt-1 h-2 w-2 rounded-full bg-primary-500" /> Durable builds with leak checks</li>
+                <li className="flex items-start gap-3"><span className="mt-1 h-2 w-2 rounded-full bg-primary-500" /> Accessories available: regulators, hoses, burners</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CNG Car Conversion (image + copy) */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Image: first on mobile, right column on md+ */}
+            <div className="mx-auto w-full max-w-md md:max-w-lg md:col-start-2 md:row-start-1">
+              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
+                <img
+                  src="/cng.jpg"
+                  alt="Technician working on vehicle conversion for CNG"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+            </div>
+
+            {/* Copy: second on mobile, left column on md+ */}
+            <div className="text-center md:text-left md:col-start-1 md:row-start-1">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">We Convert Cars to Compressed Natural Gas (CNG)</h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                Looking to cut fuel costs and reduce emissions? Our team professionally converts petrol vehicles to run on
+                Compressed Natural Gas (CNG). Enjoy a cleaner, efficient fuel option that’s safe and reliable for everyday use.
+              </p>
+              <ul className="text-gray-700 space-y-2 max-w-xl mx-auto md:mx-0">
+                <li className="flex items-start gap-3"><span className="mt-1 h-2 w-2 rounded-full bg-accent-500" /> Full meaning: Compressed Natural Gas (CNG)</li>
+                <li className="flex items-start gap-3"><span className="mt-1 h-2 w-2 rounded-full bg-accent-500" /> Professional installation and safety checks</li>
+                <li className="flex items-start gap-3"><span className="mt-1 h-2 w-2 rounded-full bg-accent-500" /> Lower running costs vs petrol or diesel</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Services Grid */}
       <motion.section 
@@ -152,13 +234,6 @@ const ServicesPage = () => {
             Every service we provide meets the highest industry standards. Our certified technicians ensure 
             your safety and satisfaction with every interaction.
           </p>
-          <motion.button 
-            className="glow-button text-lg"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Schedule a Service
-          </motion.button>
         </div>
       </motion.section>
     </div>

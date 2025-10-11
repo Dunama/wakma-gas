@@ -28,7 +28,7 @@ const HomePage = () => {
       title: 'Professional Cylinder Handling',
       description:
         'Our trained team follows stringent loading and delivery protocols, giving you confidence that every cylinder is filled, sealed, and transported with utmost care.',
-      image: '/wakma5.jpg',
+      image: '/wakma3.jpg',
       reverse: true
     },
     {
@@ -57,6 +57,8 @@ const HomePage = () => {
               src="/wakma5.jpg"
               alt="Wakma Gas background"
               className="absolute inset-0 w-full h-full object-cover will-change-transform"
+              loading="eager"
+              decoding="async"
               initial={{ scale: 1, x: 0, y: 0 }}
               animate={{ scale: [1, 1.1, 1], x: [0, 15, 0], y: [0, 8, 0] }}
               transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity }}
@@ -167,11 +169,11 @@ const HomePage = () => {
                   transition={{ duration: 0.7, delay: 0.1 + index * 0.1 }}
                 >
                   <div className="relative w-full rounded-2xl md:rounded-3xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
-                    <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[21/9]">
+                    <div className="relative w-full aspect-[4/3]">
                       <motion.img
                         src={feature.image}
                         alt={feature.title}
-                        className="absolute inset-0 h-full w-full object-contain sm:object-cover object-center"
+                        className="absolute inset-0 h-full w-full object-contain md:object-cover object-center"
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: 'tween', duration: 0.25 }}
                       />

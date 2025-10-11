@@ -5,6 +5,14 @@
   <link rel="icon" type="image/png" sizes="32x32px" href="/wakmaLogo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wakma Gas</title>
+  <!-- Prefetch hero; avoid preload warning when starting on non-Home routes -->
+  <link rel="prefetch" href="/wakma5.jpg" imagesrcset="/wakma5mb.jpg 640w, /wakma5.jpg 1280w" imagesizes="100vw" />
+  <!-- Opportunistically fetch other large images without strict preload timing -->
+  <link rel="prefetch" href="/wakma3.jpg" />
+  <link rel="prefetch" href="/wamka4.jpg" />
+  <link rel="prefetch" href="/Wakma1.jpg" />
+  <link rel="prefetch" href="/gascylinders.jpg" />
+  <link rel="prefetch" href="/serving.png" />
   </head>
   <body>
     <div id="root"></div>

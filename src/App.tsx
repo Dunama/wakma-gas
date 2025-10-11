@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Analytics } from '@vercel/analytics/react';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import AboutPage from './pages/AboutPage';
@@ -25,6 +27,10 @@ function App() {
         </Routes>
       </div>
       <Footer />
+      {/* Vercel Speed Insights instrumentation */}
+      <SpeedInsights />
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 }

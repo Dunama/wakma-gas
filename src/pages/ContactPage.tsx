@@ -24,13 +24,7 @@ const ContactPage = () => {
     transition: { duration: 0.6 }
   };
 
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
+  //
 
   const [flippedCards, setFlippedCards] = useState<Record<CardKey, boolean>>({
     location: false,
@@ -239,6 +233,8 @@ const ContactPage = () => {
             src="/Wakma1.jpg"
             alt="Contact Wakma Gas background"
             className="absolute inset-0 w-full h-full object-cover will-change-transform"
+            loading="eager"
+            decoding="async"
             initial={{ scale: 1, x: 0, y: 0 }}
             animate={{ scale: [1, 1.1, 1], x: [0, 10, 0], y: [0, 5, 0] }}
             transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
@@ -269,12 +265,7 @@ const ContactPage = () => {
       </motion.section>
 
       {/* Contact Information */}
-      <motion.section 
-        className="py-20"
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-      >
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
             {infoCards.map((card) => {
@@ -352,14 +343,8 @@ const ContactPage = () => {
 
           {/* Contact Form and Map */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              className="bg-white rounded-xl p-8 shadow-lg"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
+            {/* Contact Form (no framer-motion, mobile-friendly padding) */}
+            <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg">
               <div className="flex items-center mb-6">
                 <MessageSquare className="h-8 w-8 text-primary-600 mr-3" />
                 <h2 className="text-2xl font-bold text-gray-900">Send us a Message</h2>
@@ -434,10 +419,10 @@ const ContactPage = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Phone Number
                   </label>
-                  <div className="flex gap-3">
+                  <div className="flex flex-col sm:flex-row gap-3">
                     <select
                       aria-label="Country calling code"
-                      className="w-36 px-3 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                      className="w-full sm:w-36 px-3 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
                       value={formData.countryCode}
                       onChange={(e) => updateField('countryCode', e.target.value)}
                     >
@@ -490,26 +475,18 @@ const ContactPage = () => {
                   ></textarea>
                 </div>
                 
-                <motion.button
+                <button
                   type="submit"
                   className="glow-button w-full disabled:cursor-not-allowed"
-                  whileHover={{ scale: formStatus.state === 'submitting' ? 1 : 1.02 }}
-                  whileTap={{ scale: formStatus.state === 'submitting' ? 1 : 0.98 }}
                   disabled={formStatus.state === 'submitting'}
                 >
                   {formStatus.state === 'submitting' ? 'Sending...' : 'Send Message'}
-                </motion.button>
+                </button>
               </form>
-            </motion.div>
+            </div>
 
-            {/* Map Placeholder */}
-            <motion.div
-              className="bg-white rounded-xl p-8 shadow-lg"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
+            {/* Map (no framer-motion, mobile-friendly padding) */}
+            <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Find Us</h2>
               <div className="mb-6">
                 <a
@@ -520,7 +497,7 @@ const ContactPage = () => {
                   aria-label="Open Wakma Gas location in Google Maps"
                 >
                   <img
-                    src="https://wakma-gas.vercel.app/Wakma5.jpg"
+                    src="/wakma5.jpg"
                     alt="Wakma Gas location preview"
                     className="w-full h-64 sm:h-72 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
@@ -551,10 +528,10 @@ const ContactPage = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </motion.section>
+  </section>
 
     </div>
   );
