@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { getAssetUrl } from '../utils/assets';
+import { useImagePreloader } from '../utils/useImagePreloader';
 // import { Fuel } from 'lucide-react';
 
 const ServicesPage = () => {
@@ -7,6 +10,26 @@ const ServicesPage = () => {
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 }
   };
+
+  // Gate Ken Burns animation
+  const [enableKenBurns, setEnableKenBurns] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(min-width: 640px)');
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setEnableKenBurns(mq.matches && !rm.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    rm.addEventListener?.('change', update);
+    return () => {
+      mq.removeEventListener?.('change', update);
+      rm.removeEventListener?.('change', update);
+    };
+  }, []);
+
+  // Preload hero image
+  const heroServices = getAssetUrl('wakma3.jpg', '/wakma3.jpg');
+  const { ready: heroReady } = useImagePreloader([heroServices]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -20,22 +43,26 @@ const ServicesPage = () => {
         {/* Static background image for Services (wakma3) with Ken Burns */}
         <div className="absolute inset-0">
           <motion.img
-            src="/wakma3.jpg"
+            src={heroServices}
             alt="Wakma Gas services background"
             className="absolute inset-0 w-full h-full object-cover will-change-transform"
             loading="eager"
             decoding="async"
             initial={{ scale: 1, x: 0, y: 0 }}
-            animate={{ scale: [1, 1.1, 1], x: [0, 12, 0], y: [0, 6, 0] }}
-            transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
+            animate={enableKenBurns ? { scale: [1, 1.1, 1], x: [0, 12, 0], y: [0, 6, 0] } : { scale: 1, x: 0, y: 0 }}
+            transition={enableKenBurns ? { duration: 22, ease: 'easeInOut', repeat: Infinity } : { duration: 0 }}
+            style={{ opacity: heroReady ? 1 : 0, transition: 'opacity .3s ease' }}
           />
         </div>
         {/* White transparent overlay above image */}
         <div className="absolute inset-0 bg-black/30 pointer-events-none" />
-        
-        
-        
-  <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
+        {!heroReady && (
+          <div className="absolute inset-0 grid place-items-center z-[1]">
+            <div className="h-10 w-10 rounded-full border-4 border-white/30 border-t-orange-500 animate-spin" />
+          </div>
+        )}
+
+        <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
           <div className="max-w-3xl text-center text-white">
             <motion.h1 
               className="text-4xl md:text-5xl font-bold mb-6 drop-shadow"
@@ -53,8 +80,6 @@ const ServicesPage = () => {
           </div>
         </div>
       </motion.section>
-
-       {/* CNG Car Conversion (image + copy) */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -62,11 +87,13 @@ const ServicesPage = () => {
             <div className="mx-auto w-full max-w-md md:max-w-lg md:col-start-2 md:row-start-1">
               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
                 <img
-                  src="https://i.pinimg.com/736x/27/a6/2d/27a62d722734b5043628297b45f6ffb4.jpg"
+                  // TODO: replace with local asset cooking-lpg.jpg
+                  src={getAssetUrl('cooking-lpg.jpg', 'https://i.pinimg.com/736x/27/a6/2d/27a62d722734b5043628297b45f6ffb4.jpg')}
                   alt="Cooking gas lpg"
                   className="absolute inset-0 h-full w-full object-cover object-center"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
+                  sizes="(max-width: 768px) 100vw, 600px"
                 />
               </div>
             </div>
@@ -91,11 +118,12 @@ const ServicesPage = () => {
             <div className="mx-auto w-full max-w-md md:max-w-lg">
               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
                 <img
-                  src="/gascylinder.jpg"
+                  src={getAssetUrl('gascylinder.jpg', '/gascylinder.jpg')}
                   alt="Assorted LPG gas cylinders in different sizes and colors"
                   className="absolute inset-0 h-full w-full object-contain object-center"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
+                  sizes="(max-width: 768px) 100vw, 600px"
                 />
               </div>
             </div>
@@ -120,11 +148,12 @@ const ServicesPage = () => {
             <div className="mx-auto w-full max-w-md md:max-w-lg md:col-start-2 md:row-start-1">
               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
                 <img
-                  src="/cng.jpg"
+                  src={getAssetUrl('cng.jpg', '/cng.jpg')}
                   alt="Technician working on vehicle conversion for CNG"
                   className="absolute inset-0 h-full w-full object-cover object-center"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
+                  sizes="(max-width: 768px) 100vw, 600px"
                 />
               </div>
             </div>
@@ -177,11 +206,13 @@ const ServicesPage = () => {
             <div className="mx-auto w-full max-w-md md:max-w-lg md:col-start-2 md:row-start-1">
               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-black/10 shadow-sm bg-gray-100">
                 <img
-                  src="https://ng.jumia.is/cms/external/pet/GE779VP3ISM8JNAFAMZ/3da4b036d837275649c312b8ff3bd886.jpg"
+                  // TODO: replace with local asset generator-lpg.jpg
+                  src={getAssetUrl('generator-lpg.jpg', 'https://ng.jumia.is/cms/external/pet/GE779VP3ISM8JNAFAMZ/3da4b036d837275649c312b8ff3bd886.jpg')}
                   alt="conversion of generators from fuel to lpg"
                   className="absolute inset-0 h-full w-full object-cover object-center"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
+                  sizes="(max-width: 768px) 100vw, 600px"
                 />
               </div>
             </div>

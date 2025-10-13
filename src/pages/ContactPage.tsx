@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useImagePreloader } from '../utils/useImagePreloader';
+import { getAssetUrl } from '../utils/assets';
 import { MapPin, Phone, Mail, MessageSquare, Clock, Users } from 'lucide-react';
 
 type CardKey = 'location' | 'phone' | 'email';
@@ -18,6 +20,25 @@ type InfoCard = {
 };
 
 const ContactPage = () => {
+  // Gate Ken Burns animation
+  const [enableKenBurns, setEnableKenBurns] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(min-width: 640px)');
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setEnableKenBurns(mq.matches && !rm.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    rm.addEventListener?.('change', update);
+    return () => {
+      mq.removeEventListener?.('change', update);
+      rm.removeEventListener?.('change', update);
+    };
+  }, []);
+
+  // Preload hero image
+  const heroContact = getAssetUrl('Wakma1.jpg', '/Wakma1.jpg');
+  const { ready: heroReady } = useImagePreloader([heroContact]);
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
@@ -230,22 +251,26 @@ const ContactPage = () => {
         {/* Static background image for Contact with Ken Burns */}
         <div className="absolute inset-0">
           <motion.img
-            src="/Wakma1.jpg"
+            src={heroContact}
             alt="Contact Wakma Gas background"
             className="absolute inset-0 w-full h-full object-cover will-change-transform"
             loading="eager"
             decoding="async"
             initial={{ scale: 1, x: 0, y: 0 }}
-            animate={{ scale: [1, 1.1, 1], x: [0, 10, 0], y: [0, 5, 0] }}
-            transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
+            animate={enableKenBurns ? { scale: [1, 1.1, 1], x: [0, 10, 0], y: [0, 5, 0] } : { scale: 1, x: 0, y: 0 }}
+            transition={enableKenBurns ? { duration: 22, ease: 'easeInOut', repeat: Infinity } : { duration: 0 }}
+            style={{ opacity: heroReady ? 1 : 0, transition: 'opacity .3s ease' }}
           />
         </div>
         {/* White transparent overlay above image */}
         <div className="absolute inset-0 bg-black/30 pointer-events-none" />
-        
-        
-        
-  <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
+        {!heroReady && (
+          <div className="absolute inset-0 grid place-items-center z-[1]">
+            <div className="h-10 w-10 rounded-full border-4 border-white/30 border-t-orange-500 animate-spin" />
+          </div>
+        )}
+
+        <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
           <div className="max-w-3xl text-center text-white">
             <motion.h1 
               className="text-4xl md:text-5xl font-bold mb-6 drop-shadow"
@@ -265,6 +290,11 @@ const ContactPage = () => {
       </motion.section>
 
       {/* Contact Information */}
+          {!heroReady && (
+            <div className="absolute inset-0 grid place-items-center z-[1]">
+              <div className="h-10 w-10 rounded-full border-4 border-white/30 border-t-orange-500 animate-spin" />
+            </div>
+          )}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">

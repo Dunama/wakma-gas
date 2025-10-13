@@ -1,7 +1,29 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useImagePreloader } from '../utils/useImagePreloader';
+import { getAssetUrl } from '../utils/assets';
 // import { User, Target, Heart, Award } from 'lucide-react';
 
 const AboutPage = () => {
+  // Gate Ken Burns on larger screens and when reduced motion is not preferred
+  const [enableKenBurns, setEnableKenBurns] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(min-width: 640px)');
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setEnableKenBurns(mq.matches && !rm.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    rm.addEventListener?.('change', update);
+    return () => {
+      mq.removeEventListener?.('change', update);
+      rm.removeEventListener?.('change', update);
+    };
+  }, []);
+
+  // Preload hero image
+  const heroAbout = getAssetUrl('wamka4.jpg', '/wamka4.jpg');
+  const { ready: heroReady } = useImagePreloader([heroAbout]);
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
@@ -66,22 +88,25 @@ const AboutPage = () => {
         {/* Static background image for About (wakma4) with Ken Burns */}
         <div className="absolute inset-0">
           <motion.img
-            src="/wamka4.jpg"
+            src={getAssetUrl('wamka4.jpg', '/wamka4.jpg')}
             alt="About Wakma Gas background"
             className="absolute inset-0 w-full h-full object-cover will-change-transform"
             loading="eager"
             decoding="async"
             initial={{ scale: 1, x: 0, y: 0 }}
-            animate={{ scale: [1, 1.1, 1], x: [0, -10, 0], y: [0, 6, 0] }}
-            transition={{ duration: 22, ease: 'easeInOut', repeat: Infinity }}
+            animate={enableKenBurns ? { scale: [1, 1.1, 1], x: [0, -10, 0], y: [0, 6, 0] } : { scale: 1, x: 0, y: 0 }}
+            transition={enableKenBurns ? { duration: 22, ease: 'easeInOut', repeat: Infinity } : { duration: 0 }}
           />
         </div>
         {/* White transparent overlay above image */}
         <div className="absolute inset-0 bg-black/30 pointer-events-none" />
-        
-        
-        
-  <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
+        {!heroReady && (
+          <div className="absolute inset-0 grid place-items-center z-[1]">
+            <div className="h-10 w-10 rounded-full border-4 border-white/30 border-t-orange-500 animate-spin" />
+          </div>
+        )}
+
+        <div className="relative z-10 flex min-h-[calc(100vh-12rem)] items-start justify-center px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-12">
           <div className="max-w-3xl text-center text-white">
             <motion.h1 
               className="text-4xl md:text-5xl font-bold mb-6 drop-shadow"
@@ -89,7 +114,7 @@ const AboutPage = () => {
             >
               About Wakma Gas
             </motion.h1>
-            <motion.p 
+            <motion.p
               className="text-xl md:text-2xl text-white/90 font-semibold leading-relaxed"
               {...fadeInUp}
               transition={{ delay: 0.2, duration: 0.6 }}
@@ -205,9 +230,12 @@ const AboutPage = () => {
         {/* Full-view background image (no cropping) */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-black">
           <img
-            src="/serving-community.png"
+            src={getAssetUrl('serving-community.png', '/serving-community.png')}
             alt="Serving the Adamawa Community"
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+            sizes="100vw"
           />
         </div>
         {/* Dark overlay for readability above image */}

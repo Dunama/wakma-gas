@@ -11,3 +11,16 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </StrictMode>
 );
+
+// After initial mount, fade-out and remove splash screen
+// Keep this tiny and framework-agnostic
+queueMicrotask(() => {
+  const splash = document.getElementById('splash');
+  if (!splash) return;
+  // Defer to next frame to ensure styles are applied
+  requestAnimationFrame(() => {
+    splash.style.opacity = '0';
+    // Remove from DOM after transition
+    setTimeout(() => splash.remove(), 320);
+  });
+});
